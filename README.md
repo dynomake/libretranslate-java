@@ -41,3 +41,8 @@ Depend:
     <version>1.0.0</version>
 </dependency>
 ```
+### `Usage:`
+For example, we will translate the text from Russian to English and put it in the console:
+```java
+System.out.println(Translator.get("ru", "en", "Для примера, переведем текст с русского на английский и выведем в консоль:"));
+```
