@@ -33,7 +33,7 @@ public class Translator {
 
             OutputStreamWriter writer = new OutputStreamWriter(httpConn.getOutputStream());
 
-            writer.write("q=" + URLEncoder.encode(request, "UTF-8") + "&source=" + from + "&target=" + to + "&format=text&api_key=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx");
+            writer.write("q=" + URLEncoder.encode(request, "UTF-8") + "&source=" + from + "&target=" + to + "&format=text");
             writer.flush();
             writer.close();
             httpConn.getOutputStream().close();

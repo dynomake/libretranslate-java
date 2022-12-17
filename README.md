@@ -10,7 +10,7 @@ repositories {
     // other repositories
     maven {
         name = "clojars.org"
-        url = uri("ttp://clojars.org/repo")
+        url = uri("https://repo.clojars.org")
     }
 }
 
@@ -27,7 +27,7 @@ Repository:
 ```xml
 <repository>
     <id>clojars.org</id>
-    <url>http://clojars.org/repo</url>
+    <url>https://repo.clojars.org</url>
 </repository>
 ```
 
