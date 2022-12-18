@@ -1,6 +1,7 @@
 package net.suuft.libretranslate;
 
 import lombok.NonNull;
+import lombok.Setter;
 import lombok.experimental.UtilityClass;
 import net.suuft.libretranslate.type.TranslateRequest;
 import net.suuft.libretranslate.type.TranslateResponse;
@@ -18,11 +19,13 @@ import java.util.Scanner;
 @UtilityClass
 public class Translator {
 
+    @Setter
+    private String urlApi = "https://translate.fedilab.app/translate";
 
-    public String get(@NonNull String from, @NonNull String to, @NonNull String request) {
+    public String translate(@NonNull String from, @NonNull String to, @NonNull String request) {
         try {
 
-            URL url = new URL("https://translate.fedilab.app/translate");
+            URL url = new URL(urlApi);
             HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
             httpConn.setRequestMethod("POST");
 
