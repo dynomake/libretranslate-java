@@ -40,6 +40,7 @@ public enum Language {
     SWEDISH("sv"),
     TURKISH("tr"),
     UKRAINIAN("ua"),
+    NONE("none")
     ;
 
     String code;

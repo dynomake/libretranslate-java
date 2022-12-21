@@ -46,15 +46,15 @@ public class Translator {
             e.printStackTrace();
             return "Falled translate!";
         }
-
-
     }
 
     public String translate(@NonNull Language from, @NonNull Language to, @NonNull String request) {
+        if (to == Language.NONE || from == to) return request;
         return translate(from.getCode(), to.getCode(), request);
     }
 
     public String translate(@NonNull Language to, @NonNull String request) {
+        if (to == Language.NONE) return request;
         return translate("auto", to.getCode(), request);
     }
 }
