@@ -50,7 +50,11 @@ public class Translator {
 
     }
 
-    public String translate(@NonNull String to, @NonNull String request){
-        return translate("auto", to, request);
+    public String translate(@NonNull Language from, @NonNull Language to, @NonNull String request) {
+        return translate(from.getCode(), to.getCode(), request);
+    }
+
+    public String translate(@NonNull Language to, @NonNull String request) {
+        return translate("auto", to.getCode(), request);
     }
 }

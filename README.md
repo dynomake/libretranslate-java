@@ -16,7 +16,7 @@ repositories {
 
 dependencies {
     // other depends
-    implementation 'net.clojars.suuft:libretranslate-java:1.0.2'
+    implementation 'net.clojars.suuft:libretranslate-java:1.0.3'
 }
 ```
 
@@ -38,13 +38,13 @@ Depend:
 <dependency>
     <groupId>net.clojars.suuft</groupId>
     <artifactId>libretranslate-java</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
 </dependency>
 ```
 ### `Usage:`
 For example, we will translate the text from Russian to English and put it in the console:
 ```java
-System.out.println(Translator.translate("ru", "en", "Для примера, переведем текст с русского на английский и выведем в консоль:"));
+System.out.println(Translator.translate(Language.RUSSIAN, Language.ENGLISH, "Для примера, переведем текст с русского на английский и выведем в консоль:"));
 ```
 If you have LibreTranslate installed on your server, you can change the URL for requests. Example:
 ```java
