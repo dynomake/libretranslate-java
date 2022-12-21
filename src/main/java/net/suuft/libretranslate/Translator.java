@@ -3,17 +3,11 @@ package net.suuft.libretranslate;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.experimental.UtilityClass;
-import net.suuft.libretranslate.type.TranslateRequest;
 import net.suuft.libretranslate.type.TranslateResponse;
 import net.suuft.libretranslate.util.JsonUtil;
-
-import javax.net.ssl.HttpsURLConnection;
-import java.io.BufferedReader;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.*;
-import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 @UtilityClass
@@ -52,6 +46,11 @@ public class Translator {
             e.printStackTrace();
             return "Falled translate!";
         }
+
+
     }
 
+    public String translate(@NonNull String to, @NonNull String request){
+        return translate("auto", to, request);
+    }
 }

@@ -16,7 +16,7 @@ repositories {
 
 dependencies {
     // other depends
-    implementation 'net.clojars.suuft:libretranslate-java:1.0.1'
+    implementation 'net.clojars.suuft:libretranslate-java:1.0.2'
 }
 ```
 
@@ -38,7 +38,7 @@ Depend:
 <dependency>
     <groupId>net.clojars.suuft</groupId>
     <artifactId>libretranslate-java</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 </dependency>
 ```
 ### `Usage:`
