@@ -39,7 +39,7 @@ public enum Language {
     SPANISH("es"),
     SWEDISH("sv"),
     TURKISH("tr"),
-    UKRAINIAN("ua"),
+    UKRAINIAN("uk"),
     NONE("none")
     ;
 
