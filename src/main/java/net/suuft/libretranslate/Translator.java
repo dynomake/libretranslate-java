@@ -3,6 +3,7 @@ package net.suuft.libretranslate;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.experimental.UtilityClass;
+import net.suuft.libretranslate.exception.BadTranslatorResponseException;
 import net.suuft.libretranslate.type.TranslateResponse;
 import net.suuft.libretranslate.util.JsonUtil;
 import java.io.InputStream;
@@ -35,7 +36,7 @@ public class Translator {
             writer.close();
             httpConn.getOutputStream().close();
 
-            if (!(httpConn.getResponseCode() / 100 == 2)) return "Falled translate!";
+            if (!(httpConn.getResponseCode() / 100 == 2)) throw new BadTranslatorResponseException(httpConn.getResponseCode(), urlApi);
 
             InputStream responseStream = httpConn.getInputStream();
             Scanner s = new Scanner(responseStream).useDelimiter("\\A");
@@ -44,7 +45,7 @@ public class Translator {
             return JsonUtil.from(response, TranslateResponse.class).getTranslatedText();
         } catch (Exception e) {
             e.printStackTrace();
-            return "Falled translate!";
+            throw new RuntimeException(e);
         }
     }
 
