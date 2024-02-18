@@ -10,4 +10,14 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class TranslateResponse {
     String translatedText;
+
+    DetectedLanguage detectedLanguage;
+
+    @Getter
+    @AllArgsConstructor
+    @FieldDefaults(level = AccessLevel.PRIVATE)
+    public static class DetectedLanguage {
+        int confidence;
+        String language;
+    }
 }
