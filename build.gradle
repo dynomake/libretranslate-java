@@ -34,6 +34,16 @@ publishing {
     publications {
         gpr(MavenPublication) {
             from(components.java)
+
+
+            pom {
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'https://github.com/dynomake/libretranslate-java/blob/master/LICENSE'
+                    }
+                }
+            }
         }
     }
 }
