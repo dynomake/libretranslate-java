@@ -18,6 +18,10 @@ public class Translator {
     private String urlApi = "https://translate.fedilab.app/translate";
 
     public String translate(@NonNull String from, @NonNull String to, @NonNull String request) {
+        return translateDetect(from, to, request).getTranslatedText();
+    }
+
+    public TranslateResponse translateDetect(@NonNull String from, @NonNull String to, @NonNull String request) {
         try {
 
             URL url = new URL(urlApi);
@@ -42,7 +46,7 @@ public class Translator {
             Scanner s = new Scanner(responseStream).useDelimiter("\\A");
             String response = s.hasNext() ? s.next() : "";
 
-            return JsonUtil.from(response, TranslateResponse.class).getTranslatedText();
+            return JsonUtil.from(response, TranslateResponse.class);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -52,6 +56,10 @@ public class Translator {
     public String translate(@NonNull Language from, @NonNull Language to, @NonNull String request) {
         if (to == Language.NONE || from == to) return request;
         return translate(from.getCode(), to.getCode(), request);
+    }
+
+    public TranslateResponse translateDetect(@NonNull Language to, @NonNull String request) {
+        return translateDetect("auto", to.getCode(), request);
     }
 
     public String translate(@NonNull Language to, @NonNull String request) {
