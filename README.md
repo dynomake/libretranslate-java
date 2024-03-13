@@ -1,6 +1,6 @@
 LibreTranslate Java Restful Client
 ---
-At some point we had to translate text in Java text but we couldn't find any understandable libraries that we were comfortable with. So I wrote this library.
+At some point we had to translate text in Java but we couldn't find any understandable libraries that we were comfortable with. So I wrote this library.
 ### `Add as depend:`
 
 | **Gradle:**
