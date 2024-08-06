@@ -1,11 +1,11 @@
-package net.suuft.libretranslate;
+package space.dynomake.libretranslate;
 
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.experimental.UtilityClass;
-import net.suuft.libretranslate.exception.BadTranslatorResponseException;
-import net.suuft.libretranslate.type.TranslateResponse;
-import net.suuft.libretranslate.util.JsonUtil;
+import space.dynomake.libretranslate.exception.BadTranslatorResponseException;
+import space.dynomake.libretranslate.type.TranslateResponse;
+import space.dynomake.libretranslate.util.JsonUtil;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.*;
@@ -40,7 +40,8 @@ public class Translator {
             writer.close();
             httpConn.getOutputStream().close();
 
-            if (!(httpConn.getResponseCode() / 100 == 2)) throw new BadTranslatorResponseException(httpConn.getResponseCode(), urlApi);
+            if (!(httpConn.getResponseCode() / 100 == 2))
+                throw new BadTranslatorResponseException(httpConn.getResponseCode(), urlApi);
 
             InputStream responseStream = httpConn.getInputStream();
             Scanner s = new Scanner(responseStream).useDelimiter("\\A");
@@ -48,6 +49,9 @@ public class Translator {
 
             return JsonUtil.from(response, TranslateResponse.class);
         } catch (Exception e) {
+            if (e instanceof RuntimeException)
+                throw (RuntimeException) e;
+
             e.printStackTrace();
             throw new RuntimeException(e);
         }

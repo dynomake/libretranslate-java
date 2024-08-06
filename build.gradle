@@ -3,8 +3,8 @@ plugins {
     id 'maven-publish'
 }
 
-group 'net.clojars.suuft'
-version '1.0.7'
+group 'space.dynomake'
+version '1.0.8'
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
@@ -22,11 +22,11 @@ dependencies {
 publishing {
     repositories {
         maven {
-            name = "clojars"
-            url = uri("https://clojars.org/repo")
+            name = "dynomakeRepository"
+            url = uri("https://maven.dynomake.space/releases")
             credentials {
-                username = clojarsUserName
-                password = clojarsDeployToken
+                username = dyno_artefactory_user
+                password = dyno_artefactory_token
             }
         }
 

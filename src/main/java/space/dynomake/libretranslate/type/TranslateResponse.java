@@ -1,4 +1,4 @@
-package net.suuft.libretranslate.type;
+package space.dynomake.libretranslate.type;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

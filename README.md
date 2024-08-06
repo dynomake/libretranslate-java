@@ -9,14 +9,14 @@ At some point we had to translate text in Java but we couldn't find any understa
 repositories {
     // other repositories
     maven {
-        name = "clojars.org"
-        url = uri("https://repo.clojars.org")
+        name = "dynomakeRepository"
+        url = uri("https://maven.dynomake.space/releases")
     }
 }
 
 dependencies {
     // other depends
-    implementation 'net.clojars.suuft:libretranslate-java:1.0.7'
+    implementation "space.dynomake:libretranslate-java:1.0.8"
 }
 ```
 
@@ -26,19 +26,18 @@ Repository:
 
 ```xml
 <repository>
-    <id>clojars.org</id>
-    <url>https://repo.clojars.org</url>
+    <id>dynomakeRepository</id>
+    <url>https://maven.dynomake.space/releases</url>
 </repository>
 ```
 
 Depend:
 
 ```xml
-
 <dependency>
-    <groupId>net.clojars.suuft</groupId>
+    <groupId>space.dynomake</groupId>
     <artifactId>libretranslate-java</artifactId>
-    <version>1.0.7</version>
+    <version>1.0.8</version>
 </dependency>
 ```
 ### `Usage:`
@@ -48,5 +47,5 @@ System.out.println(Translator.translate(Language.RUSSIAN, Language.ENGLISH, "Ð”Ð
 ```
 If you have LibreTranslate installed on your server, you can change the URL for requests. Example:
 ```java
-Translator.setUrlApi("https://libretranslate.de/translate");
+Translator.setUrlApi("https://your_domain_with_libretranslate.com/translate");
 ```

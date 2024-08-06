@@ -1,9 +1,11 @@
-package net.suuft.libretranslate;
+package space.dynomake.libretranslate;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
+
+import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
@@ -44,4 +46,11 @@ public enum Language {
     ;
 
     String code;
+
+    public static Language fromCode(String code) {
+        return Arrays.stream(Language.values())
+                .filter(lang -> lang.code.equalsIgnoreCase(code))
+                .findFirst()
+                .orElse(NONE);
+    }
 }

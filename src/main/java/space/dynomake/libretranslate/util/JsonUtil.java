@@ -1,4 +1,4 @@
-package net.suuft.libretranslate.util;
+package space.dynomake.libretranslate.util;
 
 import com.google.gson.Gson;
 import lombok.NonNull;
