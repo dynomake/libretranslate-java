@@ -17,6 +17,9 @@ public class Translator {
     @Setter
     private String urlApi = "https://translate.fedilab.app/translate";
 
+    @Setter
+    private String apiKey = "unknown";
+
     public String translate(@NonNull String from, @NonNull String to, @NonNull String request) {
         return translateDetect(from, to, request).getTranslatedText();
     }
@@ -35,7 +38,7 @@ public class Translator {
 
             OutputStreamWriter writer = new OutputStreamWriter(httpConn.getOutputStream());
 
-            writer.write("q=" + URLEncoder.encode(request, "UTF-8") + "&source=" + from + "&target=" + to + "&format=text");
+            writer.write("q=" + URLEncoder.encode(request, "UTF-8") + "&source=" + from + "&api_key=" + apiKey + "&target=" + to + "&format=text");
             writer.flush();
             writer.close();
             httpConn.getOutputStream().close();

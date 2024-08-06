@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'space.dynomake'
-version '1.0.8'
+version '1.0.9'
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }

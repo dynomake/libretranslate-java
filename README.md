@@ -16,7 +16,7 @@ repositories {
 
 dependencies {
     // other depends
-    implementation "space.dynomake:libretranslate-java:1.0.8"
+    implementation "space.dynomake:libretranslate-java:1.0.9"
 }
 ```
 
@@ -37,7 +37,7 @@ Depend:
 <dependency>
     <groupId>space.dynomake</groupId>
     <artifactId>libretranslate-java</artifactId>
-    <version>1.0.8</version>
+    <version>1.0.9</version>
 </dependency>
 ```
 ### `Usage:`
@@ -48,4 +48,5 @@ System.out.println(Translator.translate(Language.RUSSIAN, Language.ENGLISH, "Ð”Ð
 If you have LibreTranslate installed on your server, you can change the URL for requests. Example:
 ```java
 Translator.setUrlApi("https://your_domain_with_libretranslate.com/translate");
+Translator.setApiKey("your_api_key_if_required");
 ```
