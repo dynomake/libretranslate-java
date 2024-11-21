@@ -47,7 +47,10 @@ public class Translator {
                 throw new BadTranslatorResponseException(httpConn.getResponseCode(), urlApi);
 
             InputStream responseStream = httpConn.getInputStream();
-            Scanner s = new Scanner(responseStream).useDelimiter("\\A");
+
+            InputStreamReader reader = new InputStreamReader(responseStream, StandardCharsets.UTF_8);
+            
+            Scanner s = new Scanner(reader).useDelimiter("\\A");
             String response = s.hasNext() ? s.next() : "";
 
             return JsonUtil.from(response, TranslateResponse.class);
