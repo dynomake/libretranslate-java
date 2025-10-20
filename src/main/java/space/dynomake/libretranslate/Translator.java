@@ -7,8 +7,10 @@ import space.dynomake.libretranslate.exception.BadTranslatorResponseException;
 import space.dynomake.libretranslate.type.TranslateResponse;
 import space.dynomake.libretranslate.util.JsonUtil;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 @UtilityClass
@@ -33,6 +35,7 @@ public class Translator {
 
             httpConn.setRequestProperty("accept", "application/json");
             httpConn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            httpConn.setRequestProperty("User-Agent", "Mozilla/5.0");
 
             httpConn.setDoOutput(true);
 
