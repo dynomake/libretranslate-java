@@ -6,10 +6,16 @@ import lombok.experimental.UtilityClass;
 import space.dynomake.libretranslate.exception.BadTranslatorResponseException;
 import space.dynomake.libretranslate.type.TranslateResponse;
 import space.dynomake.libretranslate.util.JsonUtil;
+
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.*;
-import java.util.Scanner;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 @UtilityClass
 public class Translator {
@@ -20,46 +26,61 @@ public class Translator {
     @Setter
     private String apiKey = "unknown";
 
+    @Setter
+    private static int connectTimeout = 5000; // 5 seconds
+
+    @Setter
+    private static int readTimeout = 5000;
+
     public String translate(@NonNull String from, @NonNull String to, @NonNull String request) {
         return translateDetect(from, to, request).getTranslatedText();
     }
 
     public TranslateResponse translateDetect(@NonNull String from, @NonNull String to, @NonNull String request) {
+        HttpURLConnection httpConn = null;
         try {
-
             URL url = new URL(urlApi);
-            HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
+            httpConn = (HttpURLConnection) url.openConnection();
+            httpConn.setConnectTimeout(connectTimeout);
+            httpConn.setReadTimeout(readTimeout);
+            httpConn.setUseCaches(false);
             httpConn.setRequestMethod("POST");
 
-            httpConn.setRequestProperty("accept", "application/json");
+            httpConn.setRequestProperty("Accept", "application/json");
             httpConn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            httpConn.setRequestProperty("User-Agent", "Mozilla/5.0");
 
             httpConn.setDoOutput(true);
 
-            OutputStreamWriter writer = new OutputStreamWriter(httpConn.getOutputStream());
+            // Build request body
+            String requestBody = "q=" + URLEncoder.encode(request, "UTF-8") + "&source=" + from + "&target=" + to + "&format=text";
+            // Write request
+            try (OutputStream outputStream = httpConn.getOutputStream();
+                 OutputStreamWriter writer = new OutputStreamWriter(outputStream, UTF_8)) {
+                writer.write(requestBody);
+                writer.flush();
+            }
 
-            writer.write("q=" + URLEncoder.encode(request, "UTF-8") + "&source=" + from + "&api_key=" + apiKey + "&target=" + to + "&format=text");
-            writer.flush();
-            writer.close();
-            httpConn.getOutputStream().close();
+            // Check response code before reading
+            int responseCode = httpConn.getResponseCode();
+            if (responseCode != HttpURLConnection.HTTP_OK) {
+                throw new BadTranslatorResponseException(responseCode, urlApi);
+            }
 
-            if (!(httpConn.getResponseCode() / 100 == 2))
-                throw new BadTranslatorResponseException(httpConn.getResponseCode(), urlApi);
-
-            InputStream responseStream = httpConn.getInputStream();
-
-            InputStreamReader reader = new InputStreamReader(responseStream, StandardCharsets.UTF_8);
-            
-            Scanner s = new Scanner(reader).useDelimiter("\\A");
-            String response = s.hasNext() ? s.next() : "";
-
-            return JsonUtil.from(response, TranslateResponse.class);
+            try (InputStream responseStream = httpConn.getInputStream();
+                 BufferedReader reader = new BufferedReader(new InputStreamReader(responseStream, UTF_8))) {
+                return JsonUtil.from(reader, TranslateResponse.class);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Network error during translation", e);
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Exception e) {
-            if (e instanceof RuntimeException)
-                throw (RuntimeException) e;
-
-            e.printStackTrace();
-            throw new RuntimeException(e);
+            throw new RuntimeException("Translation failed", e);
+        } finally {
+            if (httpConn != null) {
+                httpConn.disconnect();
+            }
         }
     }
 

@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
+import java.io.Reader;
+
 
 @UtilityClass
 public class JsonUtil {
@@ -16,5 +18,9 @@ public class JsonUtil {
 
     public <T> T from(@NonNull String s, Class<T> tClass) {
         return gson.fromJson(s, tClass);
+    }
+
+    public <T> T from(@NonNull Reader reader, Class<T> tClass) {
+        return gson.fromJson(reader, tClass);
     }
 }
