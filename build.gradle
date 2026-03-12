@@ -14,7 +14,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.google.code.gson:gson:2.8.7'
+    implementation 'com.google.code.gson:gson:2.13.2'
     compileOnly 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
 }
@@ -34,8 +34,6 @@ publishing {
     publications {
         gpr(MavenPublication) {
             from(components.java)
-
-
             pom {
                 licenses {
                     license {
